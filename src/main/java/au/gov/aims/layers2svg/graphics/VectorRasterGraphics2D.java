@@ -165,12 +165,12 @@ public class VectorRasterGraphics2D extends Graphics2D {
 			this.layerCounter++;
 			this.currentLayerName = layerName;
 			if (this.svgG2d != null) {
+				// SVG Group with multiple properties for layer support in different software.
 				this.svgSb.append("<g " +
 							"style=\"display:inline\" " +
 							"inkscape:groupmode=\"layer\" " +
 							"id=\"layer").append(this.layerCounter).append("\" " +
 							"inkscape:label=\"").append(layerName).append("\"><title>")
-//				this.svgSb.append("<g style=\"display:inline\"><title>")
 						.append(this.currentLayerName)
 						.append(" (").append(this.layerCounter).append(")")
 						.append("</title>");
@@ -336,8 +336,11 @@ public class VectorRasterGraphics2D extends Graphics2D {
 					this.svgSb.append(this.svgG2d.getClipPathRef());
 					this.svgSb.append("/>");
 
-				} else if (shape instanceof Path2D) {
-					Path2D path = (Path2D) shape;
+				} else {
+					Path2D path = (shape instanceof Path2D) ?
+						(Path2D) shape :
+						new GeneralPath(shape);
+
 					this.svgSb.append("<g ");
 					this.svgG2d.appendOptionalElementIDFromHint(this.svgSb);
 					this.svgSb.append("style=\"").append(this.getSVGStrokeStyle(strokePaint))
@@ -348,9 +351,6 @@ public class VectorRasterGraphics2D extends Graphics2D {
 					this.svgSb.append(">");
 					this.svgSb.append("<path ").append(this.svgG2d.getSVGPathData(path)).append("/>");
 					this.svgSb.append("</g>");
-
-				} else {
-					this.fillAndStroke(new GeneralPath(shape), strokePaint); // handled as a Path2D next time through
 				}
 			}
 		}
