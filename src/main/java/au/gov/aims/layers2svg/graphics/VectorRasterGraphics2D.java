@@ -132,16 +132,14 @@ public class VectorRasterGraphics2D extends Graphics2D {
 	}
 
 	public void disableVectorGeneration() {
-		this.svgG2d = null;
-		this.svgSb = null;
+		this.disposeVector();
 	}
 	public boolean isVectorGenerationEnabled() {
 		return this.svgG2d != null;
 	}
 
 	public void disableRasterGeneration() {
-		this.g2dImage = null;
-		this.g2d = null;
+		this.disposeRaster();
 	}
 	public boolean isRasterGenerationEnabled() {
 		return this.g2d != null;
@@ -262,7 +260,10 @@ public class VectorRasterGraphics2D extends Graphics2D {
 				// Setting the compression level is not trivial.
 				// I will add support for that when required.
 				//   http://stackoverflow.com/questions/17108234/setting-jpg-compression-level-with-imageio-in-java
-				ImageIO.write(Utils.removeAlphaChannel(this.g2dImage), "jpg", outputFile);
+				BufferedImage rgbImage = Utils.removeAlphaChannel(this.g2dImage);
+				ImageIO.write(rgbImage, "jpg", outputFile);
+				rgbImage.flush();
+				rgbImage.getGraphics().dispose();
 			} else {
 				throw new IllegalStateException("Raster generation is disabled.");
 			}
@@ -718,11 +719,26 @@ public class VectorRasterGraphics2D extends Graphics2D {
 
 	@Override
 	public void dispose() {
+		this.disposeRaster();
+		this.disposeVector();
+	}
+
+	private void disposeRaster() {
+		if (this.g2dImage != null) {
+			this.g2dImage.flush();
+			this.g2dImage.getGraphics().dispose();
+			this.g2dImage = null;
+		}
 		if (this.g2d != null) {
 			this.g2d.dispose();
+			this.g2d = null;
 		}
+	}
+
+	private void disposeVector() {
 		if (this.svgG2d != null) {
 			this.svgG2d.dispose();
+			this.svgG2d = null;
 		}
 	}
 
