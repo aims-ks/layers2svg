@@ -20,11 +20,11 @@ package au.gov.aims.layers2svg;
 
 import au.gov.aims.layers2svg.graphics.GeoGraphicsFormat;
 import au.gov.aims.layers2svg.graphics.GeoJSONShape;
+import au.gov.aims.layers2svg.graphics.TextAlignment;
 import au.gov.aims.layers2svg.graphics.VectorRasterGraphics2D;
 import au.gov.aims.sld.SldParser;
 import au.gov.aims.sld.StyleSheet;
 import au.gov.aims.sld.geom.GeoShape;
-import au.gov.aims.sld.geom.GeoShapeGroup;
 import au.gov.aims.sld.geom.Layer;
 import org.json.JSONObject;
 import org.junit.Test;
@@ -200,6 +200,7 @@ public class RenderTest {
 		g2d.setPaint(new Color(200, 0, 0));
 		g2d.fillRect(0, 0, 10, 10);
 
+		g2d.drawString("Test align Right", width, 20, TextAlignment.RIGHT);
 
 		// Save
 		String filename = "/tmp/test";

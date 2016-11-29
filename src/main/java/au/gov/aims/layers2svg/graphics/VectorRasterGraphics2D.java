@@ -22,6 +22,7 @@ import au.gov.aims.layers2svg.Utils;
 import au.gov.aims.sld.geom.GeoShape;
 import au.gov.aims.sld.geom.GeoShapeGroup;
 import au.gov.aims.sld.geom.Layer;
+import org.jfree.graphics2d.svg.SVGHints;
 import org.jfree.graphics2d.svg.SVGUnits;
 import org.jfree.graphics2d.svg.SVGUtils;
 
@@ -59,6 +60,7 @@ import java.awt.image.renderable.RenderableImage;
 import java.io.File;
 import java.io.IOException;
 import java.text.AttributedCharacterIterator;
+import java.text.AttributedString;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -606,6 +608,10 @@ public class VectorRasterGraphics2D extends Graphics2D {
 		}
 	}
 
+	public void drawString(String str, int x, int y, TextAlignment alignment) {
+		this.drawString(str, (float)x, (float)y, alignment);
+	}
+
 	@Override
 	public void drawString(String str, int x, int y) {
 		this.checkLayer();
@@ -614,6 +620,72 @@ public class VectorRasterGraphics2D extends Graphics2D {
 		}
 		if (this.svgG2d != null) {
 			this.svgG2d.drawString(str, x, y);
+		}
+	}
+
+	public void drawString(String str, float x, float y, TextAlignment alignment) {
+		if (TextAlignment.LEFT.equals(alignment)) {
+			// LEFT
+			this.drawString(str, x, y);
+		} else {
+			if (TextAlignment.RIGHT.equals(alignment)) {
+				// RIGHT
+				if (this.g2d != null) {
+					int strWidth = this.getFontMetrics().stringWidth(str);
+					this.g2d.drawString(str, x-strWidth, y);
+				}
+				if (this.svgG2d != null) {
+					this.drawSVGString(str, x, y, alignment);
+				}
+			} else {
+				// CENTRE
+				if (this.g2d != null) {
+					int strWidth = this.getFontMetrics().stringWidth(str);
+					this.g2d.drawString(str, x-(strWidth / 2), y);
+				}
+				if (this.svgG2d != null) {
+					this.drawSVGString(str, x, y, alignment);
+				}
+			}
+		}
+	}
+
+	private void drawSVGString(String str, float x, float y, TextAlignment alignment) {
+		if (!SVGHints.VALUE_DRAW_STRING_TYPE_VECTOR.equals(
+				this.getRenderingHint(SVGHints.KEY_DRAW_STRING_TYPE))) {
+
+			String alignStyle = "";
+			if (TextAlignment.RIGHT.equals(alignment)) {
+				alignStyle = "text-align:end;text-anchor:end;";
+			} else if (TextAlignment.CENTRE.equals(alignment)) {
+				alignStyle = "text-align:center;text-anchor:middle;";
+			}
+
+			this.svgSb.append("<g ");
+			this.svgG2d.appendOptionalElementIDFromHint(this.svgSb);
+			this.svgSb.append("transform=\"").append(this.svgG2d.getSVGTransform(
+					this.svgG2d.getTransform())).append("\">");
+			this.svgSb.append("<text x=\"").append(this.svgG2d.geomDP(x))
+					.append("\" y=\"").append(this.svgG2d.geomDP(y))
+					.append("\"");
+			this.svgSb.append(" style=\"")
+					.append(this.svgG2d.getSVGFontStyle())
+					.append(alignStyle)
+					.append("\"");
+			Object hintValue = getRenderingHint(SVGHints.KEY_TEXT_RENDERING);
+			if (hintValue != null) {
+				String textRenderValue = hintValue.toString();
+				this.svgSb.append(" text-rendering=\"").append(textRenderValue)
+						.append("\"");
+			}
+			this.svgSb.append(" ").append(this.svgG2d.getClipPathRef());
+			this.svgSb.append(">");
+			this.svgSb.append(SVGUtils.escapeForXML(str)).append("</text>");
+			this.svgSb.append("</g>");
+		} else {
+			AttributedString as = new AttributedString(str,
+					this.getFont().getAttributes());
+			drawString(as.getIterator(), x, y);
 		}
 	}
 
