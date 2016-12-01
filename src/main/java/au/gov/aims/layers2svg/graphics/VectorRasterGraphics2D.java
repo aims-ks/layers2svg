@@ -19,6 +19,7 @@
 package au.gov.aims.layers2svg.graphics;
 
 import au.gov.aims.layers2svg.Utils;
+import au.gov.aims.sld.TextAlignment;
 import au.gov.aims.sld.geom.GeoShape;
 import au.gov.aims.sld.geom.GeoShapeGroup;
 import au.gov.aims.sld.geom.Layer;
@@ -464,15 +465,6 @@ public class VectorRasterGraphics2D extends Graphics2D {
 	}
 
 	public void fillLabelText(GeoShape label) {
-		if (this.g2d != null) {
-			this.fillLabelText(this.g2d, label);
-		}
-		if (this.svgG2d != null) {
-			this.fillLabelText(this.svgG2d, label);
-		}
-	}
-
-	private void fillLabelText(Graphics2D g2d, GeoShape label) {
 		String labelText = label.getLabel();
 
 		if (labelText != null && !labelText.isEmpty()) {
@@ -488,7 +480,7 @@ public class VectorRasterGraphics2D extends Graphics2D {
 
 					this.setPaint(label.getFillPaint());
 					this.setFont(label.getFont());
-					g2d.drawString(labelText, (float)anchor.getX(), (float)anchor.getY());
+					this.drawString(labelText, (float)anchor.getX(), (float)anchor.getY(), label.getTextAlignment());
 
 					this.setPaint(oldPaint);
 					this.setFont(oldFont);

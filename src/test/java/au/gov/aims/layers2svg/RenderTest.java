@@ -20,10 +20,10 @@ package au.gov.aims.layers2svg;
 
 import au.gov.aims.layers2svg.graphics.GeoGraphicsFormat;
 import au.gov.aims.layers2svg.graphics.GeoJSONShape;
-import au.gov.aims.layers2svg.graphics.TextAlignment;
 import au.gov.aims.layers2svg.graphics.VectorRasterGraphics2D;
 import au.gov.aims.sld.SldParser;
 import au.gov.aims.sld.StyleSheet;
+import au.gov.aims.sld.TextAlignment;
 import au.gov.aims.sld.geom.GeoShape;
 import au.gov.aims.sld.geom.Layer;
 import org.json.JSONObject;
@@ -128,7 +128,7 @@ public class RenderTest {
 
 
 		InputStream citiesStream = RenderTest.class.getClassLoader().getResourceAsStream("layers/GBR_NERP-TE-13-1_eAtlas-NE_10m-GBR-cities.geojson");
-//		InputStream citiesStream = RenderTest.class.getClassLoader().getResourceAsStream("layers/GBR_NERP-TE-13-1_eAtlas-NE_2-GBR-cities.geojson");
+		//InputStream citiesStream = RenderTest.class.getClassLoader().getResourceAsStream("layers/GBR_NERP-TE-13-1_eAtlas-NE_2-GBR-cities.geojson");
 		String citiesString = Utils.readFile(citiesStream);
 		JSONObject citiesJson = new JSONObject(citiesString);
 		citiesStream.close();
