@@ -7,7 +7,7 @@
 
 	<groupId>au.gov.aims</groupId>
 	<artifactId>layers2svg</artifactId>
-	<version>0.1.6</version>
+	<version>0.1.7</version>
 	<packaging>jar</packaging>
 
 	<repositories>
@@ -24,7 +24,7 @@
 		<dependency>
 			<groupId>au.gov.aims</groupId>
 			<artifactId>sld</artifactId>
-			<version>0.1.4</version>
+			<version>0.1.5</version>
 		</dependency>
 
 		<!-- JSON support - For GeoJSON -->

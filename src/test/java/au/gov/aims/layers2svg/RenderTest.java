@@ -150,12 +150,12 @@ public class RenderTest {
 		SldParser parser = new SldParser();
 		StyleSheet riverBasins1997OutlineStyle  = this.getStyleSheet(parser, "styles/River-basins-1997_Outline.sld");
 		StyleSheet gbr10mGBRCitiesStyle         = this.getStyleSheet(parser, "styles/GBR_10m-GBR-cities.sld");
-		gbr10mGBRCitiesStyle.setFontSizeRatio(2.0);
+		gbr10mGBRCitiesStyle.setFontSizeRatio(2.0f);
 
 		StyleSheet gbrFeaturesStyle             = this.getStyleSheet(parser, "styles/GBR-features.sld");
 		//StyleSheet gbrFeaturesOutlookStyle      = this.getStyleSheet(parser, "styles/GBR-features_Outlook_no-label.sld");
 		StyleSheet gbrFeaturesOutlookStyle      = this.getStyleSheet(parser, "styles/GBR-features_Outlook.sld");
-		gbrFeaturesOutlookStyle.setStrokeWidthRatio(10.0);
+		gbrFeaturesOutlookStyle.setStrokeWidthRatio(10.0f);
 
 		StyleSheet seltmpReefsStyle             = this.getStyleSheet(parser, "styles/SELTMP_Reefs.sld");
 		//StyleSheet seltmpReefsSimplifiedStyle   = this.getStyleSheet(parser, "styles/SELTMP_Reefs_simplified.sld");
