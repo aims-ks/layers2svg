@@ -31,6 +31,10 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
+ * This class represent the shapes defined in a GeoJSON file.
+ * It's a "GeoShapeGroup" instead of a "Layer" to add the possibility
+ * of adding multiple GeoJSON into a single layer.
+ *
  * GeoJSON Specs:
  *   http://geojson.org/geojson-spec.html
  */

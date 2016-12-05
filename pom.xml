@@ -7,7 +7,7 @@
 
 	<groupId>au.gov.aims</groupId>
 	<artifactId>layers2svg</artifactId>
-	<version>0.1.7</version>
+	<version>0.1.8</version>
 	<packaging>jar</packaging>
 
 	<repositories>
@@ -27,11 +27,18 @@
 			<version>0.1.5</version>
 		</dependency>
 
-		<!-- JSON support - For GeoJSON -->
+		<!-- JSON support - For GeoJSONShape -->
 		<dependency>
 			<groupId>org.json</groupId>
 			<artifactId>json</artifactId>
 			<version>20151123</version>
+		</dependency>
+
+		<!-- CSV parser - For CSVShape (~26 KB) -->
+		<dependency>
+			<groupId>org.apache.solr</groupId>
+			<artifactId>solr-commons-csv</artifactId>
+			<version>3.5.0</version>
 		</dependency>
 
 		<!-- JFree SVGGraphics2D -->
