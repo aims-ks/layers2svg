@@ -167,11 +167,17 @@ public class VectorRasterGraphics2D extends Graphics2D {
 			this.currentLayerName = layerName;
 			if (this.svgG2d != null) {
 				// SVG Group with multiple properties for layer support in different software.
-				this.svgSb.append("<g " +
-							"style=\"display:inline\" " +
-							"inkscape:groupmode=\"layer\" " +
-							"id=\"layer").append(this.layerCounter).append("\" " +
-							"inkscape:label=\"").append(layerName).append("\"><title>")
+				this.svgSb.append("<g ")
+							.append("style=\"display:inline\" ")
+							.append("id=\"layer").append(this.layerCounter).append("\" ")
+							// Add layer support in Adobe Illustrator
+							//   see: https://bugs.launchpad.net/inkscape/+bug/179680
+							.append("i:layer=\"yes\" ")
+							// Add layer support in Inkscape
+							//   reverse-engineered
+							.append("inkscape:groupmode=\"layer\" ")
+							.append("inkscape:label=\"").append(layerName).append("\"")
+							.append("><title>")
 						.append(this.currentLayerName)
 						.append(" (").append(this.layerCounter).append(")")
 						.append("</title>");
