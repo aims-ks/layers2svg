@@ -171,7 +171,10 @@ import java.util.logging.Logger;
  * Modified by: Gael Lafond <g.lafond@aims.org.au>
  * </p>
  * <p>
- * Some methods needs to "protected" access instead of "private" access:
+ * Added InkScape and Illustrator namespaces to "getSVGElement" method.
+ * </p>
+ * <p>
+ * Some methods needs "protected" access instead of "private" access:
  * </p>
  *
  * <ul>
@@ -2710,6 +2713,8 @@ public final class SVGGraphics2D extends Graphics2D {
         String unitStr = this.units != null ? this.units.toString() : "";
         svg.append("xmlns=\"http://www.w3.org/2000/svg\" ")
            .append("xmlns:xlink=\"http://www.w3.org/1999/xlink\" ")
+           .append("xmlns:i=\"http://ns.adobe.com/AdobeIllustrator/10.0/\" ")
+           .append("xmlns:inkscape=\"http://www.inkscape.org/namespaces/inkscape\" ")
            .append("xmlns:jfreesvg=\"http://www.jfree.org/jfreesvg/svg\" ");
         if (includeDimensions) {
             svg.append("width=\"").append(this.width).append(unitStr)
