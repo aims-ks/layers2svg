@@ -83,7 +83,7 @@ public class RenderTest {
 
 
 		InputStream mainlandStream = RenderTest.class.getClassLoader().getResourceAsStream("layers/GBR_GBRMPA_GBR-features_Mainland_300m.geojson");
-		String mainlandString = Utils.readFile(mainlandStream);
+		String mainlandString = Layers2SVGUtils.readFile(mainlandStream);
 		JSONObject mainlandJson = new JSONObject(mainlandString);
 		mainlandStream.close();
 
@@ -95,7 +95,7 @@ public class RenderTest {
 
 		InputStream reefsStream = RenderTest.class.getClassLoader().getResourceAsStream("layers/GBR_GBRMPA_Reefs_100m.geojson");
 		//InputStream reefsStream = RenderTest.class.getClassLoader().getResourceAsStream("layers/GBR_GBRMPA_Reefs_100m_filtered.geojson");
-		String reefsString = Utils.readFile(reefsStream);
+		String reefsString = Layers2SVGUtils.readFile(reefsStream);
 		JSONObject reefsJson = new JSONObject(reefsString);
 		reefsStream.close();
 
@@ -106,7 +106,7 @@ public class RenderTest {
 
 
 		InputStream catchmentsStream = RenderTest.class.getClassLoader().getResourceAsStream("layers/AU_GA_River-basins-1997_GBR-catchments.geojson");
-		String catchmentsString = Utils.readFile(catchmentsStream);
+		String catchmentsString = Layers2SVGUtils.readFile(catchmentsStream);
 		JSONObject catchmentsJson = new JSONObject(catchmentsString);
 		catchmentsStream.close();
 
@@ -117,7 +117,7 @@ public class RenderTest {
 
 
 		InputStream gbrmpaStream = RenderTest.class.getClassLoader().getResourceAsStream("layers/GBR_e-Atlas-GBRMPA_GBRMP-bounds_Ocean-bounds.geojson");
-		String gbrmpaString = Utils.readFile(gbrmpaStream);
+		String gbrmpaString = Layers2SVGUtils.readFile(gbrmpaStream);
 		JSONObject gbrmpaJson = new JSONObject(gbrmpaString);
 		gbrmpaStream.close();
 
@@ -129,7 +129,7 @@ public class RenderTest {
 
 		InputStream citiesStream = RenderTest.class.getClassLoader().getResourceAsStream("layers/GBR_NERP-TE-13-1_eAtlas-NE_10m-GBR-cities.geojson");
 		//InputStream citiesStream = RenderTest.class.getClassLoader().getResourceAsStream("layers/GBR_NERP-TE-13-1_eAtlas-NE_2-GBR-cities.geojson");
-		String citiesString = Utils.readFile(citiesStream);
+		String citiesString = Layers2SVGUtils.readFile(citiesStream);
 		JSONObject citiesJson = new JSONObject(citiesString);
 		citiesStream.close();
 

@@ -67,7 +67,7 @@ public class DEPRECATED_TestCatchments {
 		 * Drawing
 		 */
 		InputStream catchmentsStream = DEPRECATED_Poc.class.getClassLoader().getResourceAsStream("layers/GBR_e-Atlas-GBRMPA_GBRMP-bounds_Ocean-bounds.geojson");
-		String catchmentsString = Utils.readFile(catchmentsStream);
+		String catchmentsString = Layers2SVGUtils.readFile(catchmentsStream);
 		JSONObject catchmentsJson = new JSONObject(catchmentsString);
 		catchmentsStream.close();
 

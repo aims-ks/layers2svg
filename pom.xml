@@ -7,8 +7,13 @@
 
 	<groupId>au.gov.aims</groupId>
 	<artifactId>layers2svg</artifactId>
-	<version>0.1.11</version>
+	<version>0.1.12</version>
 	<packaging>jar</packaging>
+
+	<properties>
+		<maven.compiler.source>1.8</maven.compiler.source>
+		<maven.compiler.target>1.8</maven.compiler.target>
+	</properties>
 
 	<repositories>
 		<!-- Maven repository on GitHub -->
@@ -24,7 +29,7 @@
 		<dependency>
 			<groupId>au.gov.aims</groupId>
 			<artifactId>sld</artifactId>
-			<version>0.1.6</version>
+			<version>0.1.7</version>
 		</dependency>
 
 		<!-- JSON support - For GeoJSONShape -->

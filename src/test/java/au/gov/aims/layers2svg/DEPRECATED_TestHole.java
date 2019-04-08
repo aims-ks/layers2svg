@@ -60,7 +60,7 @@ public class DEPRECATED_TestHole {
 
 
 		InputStream mainlandStream = DEPRECATED_Poc.class.getClassLoader().getResourceAsStream("layers/polyHole.geojson");
-		String mainlandString = Utils.readFile(mainlandStream);
+		String mainlandString = Layers2SVGUtils.readFile(mainlandStream);
 		JSONObject mainlandJson = new JSONObject(mainlandString);
 		mainlandStream.close();
 

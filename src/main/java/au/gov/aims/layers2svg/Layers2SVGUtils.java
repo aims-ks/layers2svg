@@ -32,7 +32,7 @@ import java.io.InputStreamReader;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 
-public class Utils {
+public class Layers2SVGUtils {
 	/**
 	 * Read a UTF-8 file into a String.
 	 * @param file
@@ -40,15 +40,15 @@ public class Utils {
 	 * @throws IOException
 	 */
 	public static String readFile(File file) throws IOException {
-		return Utils.readFile(file, StandardCharsets.UTF_8, false);
+		return Layers2SVGUtils.readFile(file, StandardCharsets.UTF_8, false);
 	}
 
 	public static String readFile(File file, boolean ignoreComments) throws IOException {
-		return Utils.readFile(file, StandardCharsets.UTF_8, ignoreComments);
+		return Layers2SVGUtils.readFile(file, StandardCharsets.UTF_8, ignoreComments);
 	}
 
 	public static String readFile(File file, Charset encoding) throws IOException {
-		return Utils.readFile(file, encoding, false);
+		return Layers2SVGUtils.readFile(file, encoding, false);
 	}
 
 	public static String readFile(File file, Charset encoding, boolean ignoreComments) throws IOException {
@@ -60,7 +60,7 @@ public class Utils {
 
 		String content;
 		try {
-			content = Utils.readFile(inputStream, encoding, ignoreComments);
+			content = Layers2SVGUtils.readFile(inputStream, encoding, ignoreComments);
 		} finally {
 			inputStream.close();
 		}
@@ -69,11 +69,11 @@ public class Utils {
 	}
 
 	public static String readFile(InputStream inputStream) throws IOException {
-		return Utils.readFile(inputStream, StandardCharsets.UTF_8, false);
+		return Layers2SVGUtils.readFile(inputStream, StandardCharsets.UTF_8, false);
 	}
 
 	public static String readFile(InputStream inputStream, boolean ignoreComments) throws IOException {
-		return Utils.readFile(inputStream, StandardCharsets.UTF_8, ignoreComments);
+		return Layers2SVGUtils.readFile(inputStream, StandardCharsets.UTF_8, ignoreComments);
 	}
 
 	/**

@@ -19,7 +19,7 @@
 package au.gov.aims.layers2svg.graphics;
 
 import au.gov.aims.sld.PropertyValue;
-import au.gov.aims.sld.Utils;
+import au.gov.aims.sld.SldUtils;
 import au.gov.aims.sld.geom.GeoShapeGroup;
 import org.apache.commons.csv.CSVParser;
 import org.apache.commons.csv.CSVStrategy;
@@ -189,7 +189,7 @@ public class CSVShape extends GeoShapeGroup {
 			String valueStr = line[headerEntry.getValue()];
 
 			PropertyValue propertyValue;
-			if (Utils.isNumeric(valueStr)) {
+			if (SldUtils.isNumeric(valueStr)) {
 				propertyValue = new PropertyValue(Double.parseDouble(valueStr));
 			} else {
 				propertyValue = new PropertyValue(valueStr);

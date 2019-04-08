@@ -18,7 +18,7 @@
  */
 package au.gov.aims.layers2svg.graphics;
 
-import au.gov.aims.layers2svg.Utils;
+import au.gov.aims.layers2svg.Layers2SVGUtils;
 import au.gov.aims.sld.TextAlignment;
 import au.gov.aims.sld.geom.GeoShape;
 import au.gov.aims.sld.geom.GeoShapeGroup;
@@ -217,13 +217,13 @@ public class VectorRasterGraphics2D extends Graphics2D {
 
 		// Shape is completely outside the drawing area - do not render
 		if (shape.intersects(this.drawingArea)) {
-			boolean isOpenPath = (shape instanceof Path2D) && !Utils.isClosed(shape);
+			boolean isOpenPath = (shape instanceof Path2D) && !Layers2SVGUtils.isClosed(shape);
 
 			// Check if the shape goes outside the drawing area.
 			// If it does, crop it.
 			if (!this.drawingArea.contains(shape.getBounds())) {
 				if (isOpenPath) {
-					croppedShape = Utils.cropOpenShape(shape, this.drawingArea);
+					croppedShape = Layers2SVGUtils.cropOpenShape(shape, this.drawingArea);
 				} else {
 					croppedShape = new Area(shape);
 					((Area)croppedShape).intersect(new Area(this.drawingArea));
@@ -269,7 +269,7 @@ public class VectorRasterGraphics2D extends Graphics2D {
 				// Setting the compression level is not trivial.
 				// I will add support for that when required.
 				//   http://stackoverflow.com/questions/17108234/setting-jpg-compression-level-with-imageio-in-java
-				BufferedImage rgbImage = Utils.removeAlphaChannel(this.g2dImage);
+				BufferedImage rgbImage = Layers2SVGUtils.removeAlphaChannel(this.g2dImage);
 				ImageIO.write(rgbImage, "jpg", outputFile);
 				rgbImage.flush();
 				rgbImage.getGraphics().dispose();
