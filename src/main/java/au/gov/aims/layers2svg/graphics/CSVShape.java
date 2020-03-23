@@ -95,8 +95,8 @@ public class CSVShape extends GeoShapeGroup {
 			return;
 		}
 
-		String lonColName = this.longitudeColumnName.toUpperCase();
-		String latColName = this.latitudeColumnName.toUpperCase();
+		String lonColName = this.longitudeColumnName;
+		String latColName = this.latitudeColumnName;
 
 		Reader reader = null;
 
@@ -115,7 +115,7 @@ public class CSVShape extends GeoShapeGroup {
 					for (int i=0; i<headerArr.length; i++) {
 						String label = headerArr[i];
 						if (label != null) {
-							label = label.toUpperCase().trim();
+							label = label.trim();
 							if (!label.isEmpty()) {
 								// Fix for messed-up CSV file (MS Notepad add invisible chars that confuse the parser)
 								String stringDelimiter = "" + csvStrategy.getEncapsulator();
