@@ -27,6 +27,7 @@ import au.gov.aims.sld.TextAlignment;
 import au.gov.aims.sld.geom.GeoShape;
 import au.gov.aims.sld.geom.Layer;
 import org.json.JSONObject;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import java.awt.Color;
@@ -201,6 +202,100 @@ public class RenderTest {
 		g2d.fillRect(0, 0, 10, 10);
 
 		g2d.drawString("Test align Right", width, 20, TextAlignment.RIGHT);
+
+		// Save
+		String filename = "/tmp/test";
+		this.render(g2d, GeoGraphicsFormat.SVG, filename);
+		this.render(g2d, GeoGraphicsFormat.PNG, filename);
+		this.render(g2d, GeoGraphicsFormat.JPG, filename);
+
+		g2d.dispose();
+	}
+
+
+	/**
+	 * Not implemented
+	 * This feature needs to be implemented in the SLD library
+	 * - au.gov.aims.sld.geom.GeoShape
+	 *     Add a rotation attribute
+	 * - au.gov.aims.sld.symbolizer.TextSymbolizer (and other symbolizers)
+	 *     Set rotation in GeoShape
+	 *  Rotate the label when render (?)
+	 */
+	@Test
+	@Ignore
+	public void testRenderRotatedLabels() throws Exception {
+		LOGGER.log(Level.INFO, "GENERATING SVG");
+
+		int width = 800;
+		int height = 600;
+
+		AffineTransform transform = new AffineTransform();
+		transform.concatenate(AffineTransform.getScaleInstance(30, -30));
+		transform.concatenate(AffineTransform.getTranslateInstance(-135, 10));
+
+		int scale = 2999999;
+
+
+		// Drawing
+
+		Rectangle2D background = new Rectangle2D.Double(0, 0, width, height);
+		GeoShape backgroundGeoShape = new GeoShape(background, null);
+		backgroundGeoShape.setFillPaint(new Color(200, 220, 220));
+
+
+		InputStream mainlandStream = RenderTest.class.getClassLoader().getResourceAsStream("layers/GBR_GBRMPA_GBR-features_Mainland_300m.geojson");
+		String mainlandString = Layers2SVGUtils.readFile(mainlandStream);
+		JSONObject mainlandJson = new JSONObject(mainlandString);
+		mainlandStream.close();
+
+		GeoJSONShape mainland = new GeoJSONShape(mainlandJson, "Mainland");
+		mainland.parse();
+		Layer mainlandLayer = new Layer("Mainland");
+		mainlandLayer.add(mainland);
+
+
+		InputStream citiesStream = RenderTest.class.getClassLoader().getResourceAsStream("layers/GBR_NERP-TE-13-1_eAtlas-NE_10m-GBR-cities.geojson");
+		String citiesString = Layers2SVGUtils.readFile(citiesStream);
+		JSONObject citiesJson = new JSONObject(citiesString);
+		citiesStream.close();
+
+		GeoJSONShape cities = new GeoJSONShape(citiesJson, "Cities");
+		cities.parse();
+		Layer citiesLayer = new Layer("Cities");
+		citiesLayer.add(cities);
+
+
+		Layer mainlandScaled = mainlandLayer.createTransformedLayer(transform);
+		Layer citiesScaled = citiesLayer.createTransformedLayer(transform);
+
+
+		// Load style sheets (SLD)
+		SldParser parser = new SldParser();
+
+		StyleSheet gbrFeaturesOutlookStyle      = this.getStyleSheet(parser, "styles/GBR-features_rotated.sld");
+		gbrFeaturesOutlookStyle.setStrokeWidthRatio(10.0f);
+
+
+		// TODO TextSymbolizer => Calculate the size of the rendered text and move it where it should be.
+
+		// Apply style to layers
+		List<Layer> mainlandStyledLayers   = gbrFeaturesOutlookStyle.generateStyledLayers(mainlandScaled, scale);
+
+
+		VectorRasterGraphics2D g2d = new VectorRasterGraphics2D(width, height, -20);
+
+		// Antialiasing text
+		g2d.setRenderingHint(
+			RenderingHints.KEY_TEXT_ANTIALIASING,
+			RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
+
+		// Fill background
+		g2d.setPaint(new Color(200, 220, 220));
+		g2d.fillRect(0, 0, width, height);
+
+		// Draw layer using the style
+		g2d.fillAndStroke(mainlandStyledLayers);
 
 		// Save
 		String filename = "/tmp/test";
