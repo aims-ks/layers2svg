@@ -17,11 +17,14 @@ jobs:
       # Retrieve the code from Github.
       # Use branch "v2" of the "checkout" plugin
       - uses: actions/checkout@v2
-        
+
+      - name: Install dependencies
+        run: |
+          apk update
+          apk add --no-cache fontconfig
+
       - name: Execute tests with Maven.
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run:
-          - apk update
-          - apk add --no-cache fontconfig
-          - mvn -B --settings settings.xml clean test
+          mvn -B --settings settings.xml clean test
