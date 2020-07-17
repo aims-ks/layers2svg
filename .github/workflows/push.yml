@@ -22,5 +22,6 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run:
-          apt install fontconfig
+          apt-get update
+          apt-get install fontconfig
           mvn -B --settings settings.xml clean test
