@@ -21,6 +21,11 @@ jobs:
       # Retrieve the code from Github.
       - uses: actions/checkout@v2
 
+      - name: Install dependencies
+        run: |
+          apk update
+          apk add --no-cache ttf-dejavu fontconfig
+
       - name: Publish to GitHub Packages.
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
