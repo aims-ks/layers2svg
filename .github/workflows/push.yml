@@ -21,4 +21,6 @@ jobs:
       - name: Execute tests with Maven.
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: mvn -B --settings settings.xml clean test
+        run:
+          apt install fontconfig
+          mvn -B --settings settings.xml clean test
