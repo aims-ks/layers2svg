@@ -21,7 +21,7 @@ jobs:
       - name: Install dependencies
         run: |
           apk update
-          apk add --no-cache libfontconfig1 fontconfig
+          apk add --no-cache ttf-dejavu fontconfig
 
       - name: Execute tests with Maven.
         env:
