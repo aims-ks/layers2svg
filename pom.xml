@@ -20,9 +20,9 @@
 	<repositories>
 		<!-- Maven repository on GitHub -->
 		<repository>
-			<id>aims-ks.mvn-repo</id>
-			<name>AIMS Knowledge System MVN Repo</name>
-			<url>https://raw.githubusercontent.com/aims-ks/mvn-repo/master/</url>
+			<id>github_aimsks</id>
+			<name>GitHub AIMS-KS repo</name>
+			<url>https://maven.pkg.github.com/aims-ks/*</url>
 		</repository>
 	</repositories>
 
@@ -64,4 +64,11 @@
 		</dependency>
 	</dependencies>
 
+	<distributionManagement>
+		<repository>
+			<id>github</id>
+			<name>GitHub AIMS-KS Apache Maven Packages</name>
+			<url>https://maven.pkg.github.com/aims-ks/layers2svg</url>
+		</repository>
+	</distributionManagement>
 </project>
