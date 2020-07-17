@@ -21,12 +21,10 @@ jobs:
       - name: Install dependencies
         run: |
           apk update
-          apk add --no-cache fontconfig
+          apk add --no-cache libfontconfig1 fontconfig
 
       - name: Execute tests with Maven.
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          apk update
-          apk add --no-cache fontconfig
+        run:
           mvn -B --settings settings.xml clean test
